@@ -28,8 +28,9 @@ class Minefield
           range.each do |range_y|
             x_adj = row + range_x
             y_adj = col + range_y
-            if cell_exists?(x_adj,y_adj)
+            if cell_exists?(x_adj,y_adj) && !cell_cleared?(x_adj,y_adj)
               clear_cell(x_adj,y_adj)
+              clear(x_adj, y_adj)
             end
           end
         end
@@ -53,7 +54,9 @@ class Minefield
   def all_cells_cleared?
     row_count.times do |row|
       column_count.times do |col|
-        return false unless cell_cleared?(row, col) && !contains_mine?(row, col)
+        if !contains_mine?(row, col)
+          return false unless cell_cleared?(row, col)
+        end
       end
     end
     true

@@ -4,13 +4,14 @@ require_relative "minefield"
 class Minesweeper < Gosu::Window
   SCREEN_WIDTH = 1028
   SCREEN_HEIGHT = 720
+  NUM_MINES = 1
 
   attr_reader :field, :mine_font, :large_font, :state
 
   def initialize
     super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
 
-    @field = Minefield.new(20, 20, 50)
+    @field = Minefield.new(20, 20, NUM_MINES)
     @mine_font = Gosu::Font.new(self, "Arial", (cell_size / 1.2).to_i)
     @large_font = Gosu::Font.new(self, "Arial", screen_height / 6)
     @state = :running
@@ -41,7 +42,7 @@ class Minesweeper < Gosu::Window
   end
 
   def reset
-    @field = Minefield.new(20, 20, 50)
+    @field = Minefield.new(20, 20, NUM_MINES)
     @state = :running
   end
 
